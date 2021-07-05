@@ -19,7 +19,7 @@ namespace WeatherApplication.Controllers
             var request = HelperClass.WbRequest(url, "GET");
             HelperClass.InsertHead(request, key, host);
             var response = HelperClass.GetHttpResponse(request);
-            var _weatherModel = JsonConvert.DeserializeObject<WeatherModel>(response);
+            var _weatherModel = JsonConvert.DeserializeObject<WeatherModel>(response); // test
             return View(_weatherModel);
         }
     }
