@@ -60,6 +60,17 @@ namespace WeatherApplication.Models
         public double Lon { get; set; }
     }
 
+    public partial class ListCollectionDate
+    {
+        public List<ListCollection> ListOfCollections { get; set; }
+    }
+
+    public partial class ListCollection
+    { 
+        public string DateName { get; set; }
+        public List<List> ListOfDateTimes { get; set; }
+    }
+
     public partial class List
     {
         [JsonProperty("dt")]

@@ -1,30 +1,65 @@
-﻿@model WeatherApplication.Models.WeatherModel
+﻿@model WeatherApplication.Models.ListCollectionDate
 
 @{
-    ViewBag.Title = "Weatherfi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //ViewBag.Title = "Weatherfi";
     DateTime today = DateTime.Now;
     var d = 0;
 }
 
-<div class="jumbotron">
-    <h1>@Model.City.Name</h1>
-    <p class="lead">Weather forecast for @Model.City.Name</p>
+<div class="jumbotron" style="background-color: #013243; color: white;">
+    <h1>Aarhus</h1>
+    @*<p class="lead">Weather forecast for @Model.City.Name</p>*@
 </div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>5 dages vejrudsigt</h2>
-        @foreach (var v in Model.List)
+<div class="container">
+    <div class="row">
+        @foreach (var a in Model.ListOfCollections)
         {
-            var dates = v.DtTxt.ToString().Split(' ');
-            var days = dates[0];
-            var time = dates[1];
-            <p>
-                @days
-            </p>
-            <p>
-                @time
-            </p>
-        }
-    </div>
+        <div class="col-md">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Tid</th>
+                        <th scope="col">@a.DateName</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var k in a.ListOfDateTimes)
+                    {
+                        var s = k.DtTxt.ToString().Split(' ')[1].Split(':');
+                        var time = s[0] + ":" + s[1];
+                    <tr>
+                        <th scope="row">@time</th>
+                        <td>@k.Weather[0].Main</td>
+                        @if (@k.Weather[0].Main.Equals("Clouds"))
+                        {
+                            <td><img icon="68" src="../img/cloud.png" width="20" height="20" alt=":-)" /></td>
+                        }
+                        @if (@k.Weather[0].Main.Equals("Rain"))
+                        {
+                            <td><img icon="68" src="../img/rain.png" width="20" height="20" alt=":-)" /></td>
+                        }
+                        @if (@k.Weather[0].Main.Equals("Clear"))
+                        {
+                            <td><img icon="68" src="../img/sun.png" width="20" height="20" alt=":-)" /></td>
+                        }
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+
+                @*@foreach (var k in a.ListOfDateTimes)
+                    {
+                    var s = k.DtTxt.ToString().Split(' ')[1].Split(':');
+                    var time = s[0] + ":" + s[1];
+                    <p style="font-size: 12px;">@time</p>
+                    }*@
+
+                    }
+
+</div>
 </div>
