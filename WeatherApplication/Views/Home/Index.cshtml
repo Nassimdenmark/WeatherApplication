@@ -13,53 +13,119 @@
 </div>
 <div class="container">
     <div class="row">
-        @foreach (var a in Model.ListOfCollections)
-        {
+        @*<div id="accordion">*@
+            @foreach (var a in Model.ListOfCollections)
+            {
         <div class="col-md">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Tid</th>
-                        <th scope="col">@a.DateName</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var k in a.ListOfDateTimes)
-                    {
-                        var s = k.DtTxt.ToString().Split(' ')[1].Split(':');
-                        var time = s[0] + ":" + s[1];
-                    <tr>
-                        <th scope="row">@time</th>
-                        <td>@k.Weather[0].Main</td>
-                        @if (@k.Weather[0].Main.Equals("Clouds"))
-                        {
-                            <td><img icon="68" src="../img/cloud.png" width="20" height="20" alt=":-)" /></td>
-                        }
-                        @if (@k.Weather[0].Main.Equals("Rain"))
-                        {
-                            <td><img icon="68" src="../img/rain.png" width="20" height="20" alt=":-)" /></td>
-                        }
-                        @if (@k.Weather[0].Main.Equals("Clear"))
-                        {
-                            <td><img icon="68" src="../img/sun.png" width="20" height="20" alt=":-)" /></td>
-                        }
-                    </tr>
-                    }
-                </tbody>
-            </table>
+            
+            <div class="card" style="background-color: #013243; color: white; text-align: center;">
+                <div class="card-header" id="headingOne">
+                    <p style="font-size: 12px; font-weight: 400; margin-bottom: 0px;">@a.DateName</p>
+                </div>
+            </div>
+            @foreach (var k in a.ListOfDateTimes)
+            {
+                var s = k.DtTxt.ToString().Split(' ')[1].Split(':');
+                var time = s[0] + ":" + s[1];
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link collapsed col-12" style="text-decoration: none;" data-toggle="collapse" data-target="#@d" aria-expanded="false" aria-controls="collapseOne">
+
+                                <div class="row">
+                                    <div class="col">@time</div>
+                                    @if (@k.Weather[0].Main.Equals("Clouds"))
+                                    {
+                                        <div class="col">
+                                            Overskyet
+                                        </div>
+                                    }
+                                    @if (@k.Weather[0].Main.Equals("Rain"))
+                                    {
+                                        <div class="col">
+                                            Regnvejr
+                                        </div>
+                                    }
+                                    @if (@k.Weather[0].Main.Equals("Clear"))
+                                    {
+                                        <div class="col">
+                                            Skyfrit
+                                        </div>
+                                    }
+                                    <div class="col">
+                                        @if (@k.Weather[0].Main.Equals("Clouds"))
+                                        {
+                                            <img icon="68" src="../img/cloud.png" width="20" height="20" alt=":-)" />
+                                        }
+                                        @if (@k.Weather[0].Main.Equals("Rain"))
+                                        {
+                                            <img icon="68" src="../img/rain.png" width="20" height="20" alt=":-)" />
+                                        }
+                                        @if (@k.Weather[0].Main.Equals("Clear"))
+                                        {
+                                            <img icon="68" src="../img/sun.png" width="20" height="20" alt=":-)" />
+                                        }
+                                    </div>
+                                </div>
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="@d" style="height: 0px; display: none !important;" class="show collapse" aria-labelledby="headingOne" aria-expanded="false" data-parent="#accordion">
+                        <div class="card-body">
+                            @k.Weather[0].Description
+                        </div>
+                    </div>
+                </div>
+                { d++; }
+            }
+
         </div>
 
+            }
+            @*@foreach (var a in Model.ListOfCollections)
+                {
+                <div class="col-md">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Tid</th>
+                                <th scope="col">@a.DateName</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var k in a.ListOfDateTimes)
+                            {
+                                var s = k.DtTxt.ToString().Split(' ')[1].Split(':');
+                                var time = s[0] + ":" + s[1];
+                                <tr>
+                                    <th scope="row">@time</th>
+                                    <td>@k.Weather[0].Main</td>
+                                    @if (@k.Weather[0].Main.Equals("Clouds"))
+                                    {
+                                        <td><img icon="68" src="../img/cloud.png" width="20" height="20" alt=":-)" /></td>
+                                    }
+                                    @if (@k.Weather[0].Main.Equals("Rain"))
+                                    {
+                                        <td><img icon="68" src="../img/rain.png" width="20" height="20" alt=":-)" /></td>
+                                    }
+                                    @if (@k.Weather[0].Main.Equals("Clear"))
+                                    {
+                                        <td><img icon="68" src="../img/sun.png" width="20" height="20" alt=":-)" /></td>
+                                    }
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>*@
 
 
-                @*@foreach (var k in a.ListOfDateTimes)
-                    {
-                    var s = k.DtTxt.ToString().Split(' ')[1].Split(':');
-                    var time = s[0] + ":" + s[1];
-                    <p style="font-size: 12px;">@time</p>
-                    }*@
 
-                    }
 
-</div>
+
+
+
+        @*</div>*@
+    </div>
 </div>
