@@ -27,46 +27,41 @@
             {
                 var s = k.DtTxt.ToString().Split(' ')[1].Split(':');
                 var time = s[0] + ":" + s[1];
+                var caseSwitch = @k.Weather[0].Main;
+                var w = "";
+                var img = "";
+                var filetype = ".png";
                 <div class="card">
                     <div class="card-header" id="headingOne">
                         <h5 class="mb-0">
                             <button class="btn btn-link collapsed col-12" style="text-decoration: none;" data-toggle="collapse" data-target="#@d" aria-expanded="false" aria-controls="collapseOne">
-
                                 <div class="row">
                                     <div class="col">@time</div>
-                                    @if (@k.Weather[0].Main.Equals("Clouds"))
-                                    {
-                                        <div class="col">
-                                            Overskyet
-                                        </div>
-                                    }
-                                    @if (@k.Weather[0].Main.Equals("Rain"))
-                                    {
-                                        <div class="col">
-                                            Regnvejr
-                                        </div>
-                                    }
-                                    @if (@k.Weather[0].Main.Equals("Clear"))
-                                    {
-                                        <div class="col">
-                                            Skyfrit
-                                        </div>
-                                    }
                                     <div class="col">
-                                        @if (@k.Weather[0].Main.Equals("Clouds"))
+
+                                        @switch (@caseSwitch)
                                         {
-                                            <img icon="68" src="../img/cloud.png" width="20" height="20" alt=":-)" />
+                                            case "Clouds":
+                                                w = "Overskyet";
+                                                img = "cloud";
+                                                break;
+                                            case "Rain":
+                                                w = "Regn";
+                                                img = "rain";
+                                                break;
+                                            case "Clear":
+                                                w = "Skyfrit";
+                                                img = "sun";
+                                                break;
+                                            default:
+                                                break;
                                         }
-                                        @if (@k.Weather[0].Main.Equals("Rain"))
-                                        {
-                                            <img icon="68" src="../img/rain.png" width="20" height="20" alt=":-)" />
-                                        }
-                                        @if (@k.Weather[0].Main.Equals("Clear"))
-                                        {
-                                            <img icon="68" src="../img/sun.png" width="20" height="20" alt=":-)" />
-                                        }
+                                        @w
                                     </div>
-                                </div>
+                                        <div class="col">
+                                                <img icon="68" src="../img/@img@filetype"; width="20" height="20" alt=":-)" />
+                                        </div>
+                                    </div>
                             </button>
                         </h5>
                     </div>
@@ -79,53 +74,7 @@
                 </div>
                 { d++; }
             }
-
         </div>
-
             }
-            @*@foreach (var a in Model.ListOfCollections)
-                {
-                <div class="col-md">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Tid</th>
-                                <th scope="col">@a.DateName</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var k in a.ListOfDateTimes)
-                            {
-                                var s = k.DtTxt.ToString().Split(' ')[1].Split(':');
-                                var time = s[0] + ":" + s[1];
-                                <tr>
-                                    <th scope="row">@time</th>
-                                    <td>@k.Weather[0].Main</td>
-                                    @if (@k.Weather[0].Main.Equals("Clouds"))
-                                    {
-                                        <td><img icon="68" src="../img/cloud.png" width="20" height="20" alt=":-)" /></td>
-                                    }
-                                    @if (@k.Weather[0].Main.Equals("Rain"))
-                                    {
-                                        <td><img icon="68" src="../img/rain.png" width="20" height="20" alt=":-)" /></td>
-                                    }
-                                    @if (@k.Weather[0].Main.Equals("Clear"))
-                                    {
-                                        <td><img icon="68" src="../img/sun.png" width="20" height="20" alt=":-)" /></td>
-                                    }
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>*@
-
-
-
-
-
-
-
-        @*</div>*@
     </div>
 </div>
