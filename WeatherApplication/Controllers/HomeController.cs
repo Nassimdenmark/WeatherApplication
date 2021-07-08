@@ -15,9 +15,8 @@ namespace WeatherApplication.Controllers
 
         public ActionResult Index()
         {
-            var param = "aarhus,dkk";
-            var units = "metric";
-            var url = String.Format($"https://community-open-weather-map.p.rapidapi.com/forecast?q={param}?units={units}");
+            var city = "aarhus,dkk";
+            var url = String.Format($"https://community-open-weather-map.p.rapidapi.com/forecast?q={city}&units=metric");
             var request = HelperClass.WbRequest(url, "GET");
             HelperClass.InsertHead(request, key, host);
             var response = HelperClass.GetHttpResponse(request);

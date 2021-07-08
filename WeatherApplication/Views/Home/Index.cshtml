@@ -4,10 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     //ViewBag.Title = "Weatherfi";
     DateTime today = DateTime.Now;
-    var d = 0;
+    var counter = 0;
+    string id = "id" + counter++.ToString();
 }
 
-<div class="jumbotron" style="background-color: #013243; color: white;">
+<div class="jumbotron" style="background-color: #013; color: white;">
     <h1>Aarhus</h1>
     @*<p class="lead">Weather forecast for @Model.City.Name</p>*@
 </div>
@@ -17,8 +18,8 @@
             @foreach (var a in Model.ListOfCollections)
             {
         <div class="col-md">
-            
-            <div class="card" style="background-color: #013243; color: white; text-align: center;">
+
+            <div class="card" style="background-color: #013; color: white; text-align: center;">
                 <div class="card-header" id="headingOne">
                     <p style="font-size: 12px; font-weight: 400; margin-bottom: 0px;">@a.DateName</p>
                 </div>
@@ -26,55 +27,57 @@
             @foreach (var k in a.ListOfDateTimes)
             {
                 var s = k.DtTxt.ToString().Split(' ')[1].Split(':');
-                var time = s[0] + ":" + s[1];
+                var timeOfTempDay = s[0] + ":" + s[1];
                 var caseSwitch = @k.Weather[0].Main;
-                var w = "";
-                var img = "";
-                var filetype = ".png";
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link collapsed col-12" style="text-decoration: none;" data-toggle="collapse" data-target="#@d" aria-expanded="false" aria-controls="collapseOne">
-                                <div class="row">
-                                    <div class="col">@time</div>
-                                    <div class="col">
+                var weatherToDanish = "";
+                var weatherIconPath = "";
 
-                                        @switch (@caseSwitch)
-                                        {
-                                            case "Clouds":
-                                                w = "Overskyet";
-                                                img = "cloud";
-                                                break;
-                                            case "Rain":
-                                                w = "Regn";
-                                                img = "rain";
-                                                break;
-                                            case "Clear":
-                                                w = "Skyfrit";
-                                                img = "sun";
-                                                break;
-                                            default:
-                                                break;
-                                        }
-                                        @w
-                                    </div>
-                                        <div class="col">
-                                                <img icon="68" src="../img/@img@filetype"; width="20" height="20" alt=":-)" />
-                                        </div>
-                                    </div>
-                            </button>
-                        </h5>
-                    </div>
+        <div class="card">
+            @*<div class="card-header" id="headingOne">*@
+                @*<h5 class="mb-0">*@
+                    <button class="btn btn-link col-12" style="text-decoration: none;" type="button" data-bs-toggle="collapse" data-bs-target="#@id" aria-expanded="false" aria-controls="collapseExample">
 
-                    <div id="@d" style="height: 0px; display: none !important;" class="show collapse" aria-labelledby="headingOne" aria-expanded="false" data-parent="#accordion">
-                        <div class="card-body">
+                        <div class="row">
+                            <div class="col-4"><p>@timeOfTempDay</p></div>
+                            <div class="col-4">
+
+                                @switch (@caseSwitch)
+                                {
+                                    case "Clouds":
+                                        weatherToDanish = "Overskyet";
+                                        weatherIconPath = "cloud.png";
+                                        break;
+                                    case "Rain":
+                                        weatherToDanish = "Regn";
+                                        weatherIconPath = "rain.png";
+                                        break;
+                                    case "Clear":
+                                        weatherToDanish = "Skyfrit";
+                                        weatherIconPath = "sun.png";
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                                @*<p>@weatherToDanish</p>*@
+                                
+                                <p>@k.Main.Temp</p>
+                            </div>
+                            <div class="col-4">
+                                <img icon="68" src="../img/@weatherIconPath" ; width="15" height="15" alt=":-)" />
+                            </div>
+                        </div>
+                    </button>
+                    <div class="collapse" id="@id">
+                        <div style="padding: 10px">
                             @k.Weather[0].Description
                         </div>
+                                </div>
+                            </div>
+
+                            { id = "id" + counter++;}
+                        }
                     </div>
+                        }
                 </div>
-                { d++; }
-            }
-        </div>
-            }
-    </div>
-</div>
+            </div>
